@@ -8,16 +8,16 @@ datasource db {
 }
 
 model delivery {
-  id               Int    @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  id               Int    @id @default(autoincrement())
   product_name     String @db.VarChar(125)
   sender_name      String @db.VarChar(125)
   recipient_name   String @db.VarChar(125)
-  delivery_status  String @db.VarChar(45)
   cep_id           String @db.VarChar(8)
   address_street   String @db.VarChar(125)
   address_city     String @db.VarChar(125)
   address_number   Int
   address_district String @db.VarChar(125)
+  delivery_status  String @db.VarChar(50)
 }
 
 model user {

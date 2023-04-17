@@ -32,8 +32,8 @@ export class AuthService {
     return data
   }
 
-  async registerUser(username, email, password) {
-    if (this.prismaService.user.findFirst({where : email}) || this.prismaService.user.findFirst({where : username})) {
+  async registerUser(username, email, password) {  
+    if (await this.prismaService.user.findFirst({where : {email}}) || await this.prismaService.user.findFirst({where : {username}})) {
       throw new BadRequestException('Credencias já cadastradas.')
     }
 
