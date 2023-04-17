@@ -7,11 +7,11 @@ import { UpdateDeliveryDTO } from './dto/update-delivery.dto';
 import { ApiTags } from '@nestjs/swagger'
 
 @ApiTags('Entregas')
-@Controller('delivery')
+@UseGuards(AuthGuard)
+@Controller('/api/delivery')
 export class DeliveryController {
   constructor(private readonly deliveryService: DeliveryService) {}
 
-  @UseGuards(AuthGuard)
   @Post('create')
   createDelivery(@Body() {product, sender, recipient, cep, addressNumber} : CreateDeliveryDTO) {
     return this.deliveryService.createDelivery(product, sender, recipient, cep, addressNumber )
@@ -22,13 +22,11 @@ export class DeliveryController {
     return this.deliveryService.searchDeliveryBy(searchColumn, searchKeywords)
   }
 
-  @UseGuards(AuthGuard)
   @Patch('update')
   updateDelivery(@Body() {id, status} : UpdateDeliveryDTO) {
     return this.deliveryService.updateDelivery(id, status)
   }
 
-  @UseGuards(AuthGuard)
   @Delete('delete/:id')
   cancelDelivery(@Param('id', ParseIntPipe) id : number) {
     return this.deliveryService.cancelDelivery(id)
